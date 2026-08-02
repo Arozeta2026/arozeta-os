@@ -8,9 +8,9 @@ import { KPIS, TREASURY_SERIES, UPCOMING_PAYMENTS, UPCOMING_INCOME, ALERTS } fro
 export default function DashboardPage() {
   return (
     <div className="space-y-6 w-full">
-      {/* KPI row */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {KPIS.map((k) => (
+      {/* Top KPIs */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {KPIS.slice(0,4).map((k) => (
           <KpiLarge
             key={k.id}
             title={k.title}
@@ -19,33 +19,32 @@ export default function DashboardPage() {
             yoy={k.yoy}
             trend={k.trend}
             sparkData={k.spark}
-            suffix={k.suffix}
           />
         ))}
       </section>
 
-      {/* Main area */}
+      {/* Treasury chart */}
+      <section>
+        <Card className="p-4 h-[520px]">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-lg font-semibold">Treasury Evolution</h3>
+              <p className="text-sm text-slate-400">This Month · Last Month · Last Year · Budget · Forecast</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="text-sm text-slate-300">Range: Last 30 days</div>
+            </div>
+          </div>
+
+          <div className="h-[420px]">
+            <TreasuryChart series={TREASURY_SERIES} />
+          </div>
+        </Card>
+      </section>
+
+      {/* Third row */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <Card className="p-4 h-[520px] flex flex-col">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-semibold">Treasury Evolution</h3>
-                <p className="text-sm text-slate-400">Comparisons: Month vs Last Month • Month vs Last Year • Budget vs Actual • Forecast</p>
-              </div>
-              <div className="text-sm text-slate-300">Last 30 days</div>
-            </div>
-
-            <div className="flex-1">
-              <TreasuryChart series={TREASURY_SERIES} />
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="text-xs text-slate-400">Monthly vs Last Month</div>
-              <div className="text-xs text-slate-400 text-right">Budget vs Actual • Forecast</div>
-            </div>
-          </Card>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <h4 className="text-sm font-medium text-slate-300 mb-3">Upcoming Payments</h4>
@@ -83,9 +82,7 @@ export default function DashboardPage() {
               </ul>
             </Card>
           </div>
-        </div>
 
-        <aside className="space-y-6">
           <Card>
             <h4 className="text-sm font-medium text-slate-300 mb-3">Alerts</h4>
             <ul className="space-y-3">
@@ -97,10 +94,23 @@ export default function DashboardPage() {
               ))}
             </ul>
           </Card>
+        </div>
 
+        <aside className="space-y-6">
           <Card>
             <h4 className="text-sm font-medium text-slate-300 mb-3">Debt Summary</h4>
             <TreasurySummary />
+          </Card>
+
+          <Card>
+            <h4 className="text-sm font-medium text-slate-300 mb-3">Freedom Score</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-400 flex items-center justify-center text-black font-bold text-xl">{KPIS.find(k=>k.id==='freedom')?.current}</div>
+              <div className="text-sm text-slate-300">
+                <div className="font-medium">{KPIS.find(k=>k.id==='freedom')?.current} / 100</div>
+                <div className="text-xs text-slate-400">Liquidity & runway, diversification, debt coverage</div>
+              </div>
+            </div>
           </Card>
 
           <Card>
@@ -108,22 +118,11 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-xs text-slate-400">Available cash</div>
-                <div className="text-2xl font-semibold mt-1">$1,248,560</div>
+                <div className="text-2xl font-semibold mt-1">{KPIS.find(k=>k.id==='cash')?.current}</div>
                 <div className="text-xs text-slate-400 mt-1">Liquid reserves • Bank accounts</div>
               </div>
               <div className="w-28">
                 <Sparkline data={KPIS.find(k=>k.id==='cash')!.spark} color="#60a5fa" />
-              </div>
-            </div>
-          </Card>
-
-          <Card>
-            <h4 className="text-sm font-medium text-slate-300 mb-3">Freedom Score</h4>
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-400 flex items-center justify-center text-black font-bold text-xl">82</div>
-              <div className="text-sm text-slate-300">
-                <div className="font-medium">82 / 100</div>
-                <div className="text-xs text-slate-400">Liquidity & runway, diversification, debt coverage</div>
               </div>
             </div>
           </Card>

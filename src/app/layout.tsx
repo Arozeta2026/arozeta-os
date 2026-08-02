@@ -1,5 +1,5 @@
 'use client'
-import './styles/globals.css'
+import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
 import Sidebar from '@/components/layout/Sidebar'
 import Header from '@/components/layout/Header'

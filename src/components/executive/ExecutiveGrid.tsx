@@ -16,25 +16,29 @@ export default function ExecutiveGrid({
   return (
     <div className="space-y-6">
 
+      {/* FILA SUPERIOR */}
+
       <div className="grid grid-cols-12 gap-6">
 
-        <div className="col-span-8">
+        <div className="col-span-6">
           {left}
         </div>
 
-        <div className="col-span-4">
+        <div className="col-span-6">
           {right}
         </div>
 
       </div>
 
+      {/* FILA INFERIOR */}
+
       <div className="grid grid-cols-12 gap-6">
 
-        <div className="col-span-6">
+        <div className="col-span-8">
           {bottomLeft}
         </div>
 
-        <div className="col-span-6">
+        <div className="col-span-4">
           {bottomRight}
         </div>
 

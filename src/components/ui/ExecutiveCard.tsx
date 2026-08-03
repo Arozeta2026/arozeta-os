@@ -5,6 +5,7 @@ interface ExecutiveCardProps {
   subtitle?: string;
   children: ReactNode;
   className?: string;
+  action?: ReactNode;
 }
 
 export default function ExecutiveCard({
@@ -12,44 +13,56 @@ export default function ExecutiveCard({
   subtitle,
   children,
   className = "",
+  action,
 }: ExecutiveCardProps) {
   return (
-    <div
+    <section
       className={`
+        overflow-hidden
         rounded-3xl
         border
-        border-slate-800/70
-        bg-slate-900/70
-        backdrop-blur-xl
-        shadow-[0_0_30px_rgba(0,0,0,0.25)]
+        border-slate-800
+        bg-[#111827]
+        shadow-xl
         transition-all
         duration-300
         hover:border-slate-700
-        hover:shadow-[0_0_40px_rgba(37,99,235,0.12)]
+        hover:shadow-2xl
         ${className}
       `}
     >
-      {(title || subtitle) && (
-        <div className="border-b border-slate-800 px-6 py-5">
+      {(title || subtitle || action) && (
+        <header className="flex items-start justify-between border-b border-slate-800 px-7 py-6">
 
-          {title && (
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
-              {title}
-            </h3>
+          <div>
+
+            {title && (
+              <h2 className="text-lg font-semibold tracking-tight text-white">
+                {title}
+              </h2>
+            )}
+
+            {subtitle && (
+              <p className="mt-1 text-sm text-slate-400">
+                {subtitle}
+              </p>
+            )}
+
+          </div>
+
+          {action && (
+            <div>
+              {action}
+            </div>
           )}
 
-          {subtitle && (
-            <p className="mt-1 text-sm text-slate-500">
-              {subtitle}
-            </p>
-          )}
-
-        </div>
+        </header>
       )}
 
-      <div className="p-6">
+      <div className="p-7">
         {children}
       </div>
-    </div>
+
+    </section>
   );
 }

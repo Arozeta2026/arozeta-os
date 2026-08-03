@@ -1,7 +1,10 @@
 import KPIBar from "./KPIBar";
 import ExecutiveGrid from "./ExecutiveGrid";
+import ExecutiveSummary from "./ExecutiveSummary";
 
-import TreasuryChart from "@/components/charts/TreasuryChart";
+import IncomeWidget from "@/components/widgets/IncomeWidget";
+import ExpensesWidget from "@/components/widgets/ExpensesWidget";
+
 import IncomeExpenseChart from "@/components/charts/IncomeExpenseChart";
 import NetWorthChart from "@/components/charts/NetWorthChart";
 
@@ -13,7 +16,7 @@ export default function MissionControl() {
   return (
     <div className="space-y-8">
 
-      {/* Header */}
+      {/* HEADER */}
 
       <section className="flex items-end justify-between">
 
@@ -31,11 +34,11 @@ export default function MissionControl() {
 
         <div className="flex gap-3">
 
-          <button className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300 hover:bg-slate-800">
+          <button className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300 transition hover:bg-slate-800">
             Consolidado
           </button>
 
-          <button className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300 hover:bg-slate-800">
+          <button className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300 transition hover:bg-slate-800">
             Agosto 2026
           </button>
 
@@ -43,11 +46,32 @@ export default function MissionControl() {
 
       </section>
 
+      {/* KPI BAR */}
+
       <KPIBar />
 
+      {/* EXECUTIVE SUMMARY */}
+
+      <ExecutiveSummary />
+
+      {/* MISSION CONTROL */}
+
       <ExecutiveGrid
-        left={<TreasuryChart />}
-        right={
+        left={<IncomeWidget />}
+
+        right={<ExpensesWidget />}
+
+        bottomLeft={
+          <div className="space-y-6">
+
+            <IncomeExpenseChart />
+
+            <NetWorthChart />
+
+          </div>
+        }
+
+        bottomRight={
           <div className="space-y-6">
 
             <UpcomingPayments />
@@ -58,8 +82,6 @@ export default function MissionControl() {
 
           </div>
         }
-        bottomLeft={<IncomeExpenseChart />}
-        bottomRight={<NetWorthChart />}
       />
 
     </div>

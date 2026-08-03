@@ -7,7 +7,7 @@ export default function CompaniesWidget() {
   return (
     <ExecutiveCard
       title="Companies"
-      subtitle={`${items.length} sociedades registradas`}
+      subtitle={`${items.length} sociedades`}
     >
       <div className="space-y-4">
 
@@ -15,29 +15,30 @@ export default function CompaniesWidget() {
 
           const hasValue =
             company.Valor &&
-            company.Valor.trim() !== "";
+            company.Valor !== "";
 
           return (
             <div
               key={index}
-              className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-800/40 p-4"
+              className="rounded-xl border border-slate-800 bg-slate-800/50 p-4"
             >
-              <div>
 
-                <h3 className="font-semibold text-white">
-                  {company.Empresa}
-                </h3>
+              <div className="flex justify-between">
 
-                <p className="mt-1 text-sm text-slate-400">
-                  Participación {company["Participación %"]}
-                </p>
+                <div>
 
-              </div>
+                  <h4 className="font-semibold text-white">
+                    {company.Empresa}
+                  </h4>
 
-              <div className="text-right">
+                  <p className="text-sm text-slate-400">
+                    Participación {company["Participación %"]}
+                  </p>
+
+                </div>
 
                 <span
-                  className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
                     hasValue
                       ? "bg-emerald-500/20 text-emerald-400"
                       : "bg-amber-500/20 text-amber-400"
@@ -45,10 +46,6 @@ export default function CompaniesWidget() {
                 >
                   {hasValue ? "Valorada" : "Pendiente"}
                 </span>
-
-                <p className="mt-2 text-sm text-slate-500">
-                  {hasValue ? `${company.Valor} €` : "Sin valoración"}
-                </p>
 
               </div>
 

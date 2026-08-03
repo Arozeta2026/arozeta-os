@@ -1,27 +1,8 @@
-import income from "@/data/income.json";
-import expenses from "@/data/expenses.json";
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
+import { getDashboard } from "@/services/dashboardService";
 
 export default function ExecutiveSummary() {
-  const incomes = income as any[];
-  const expenseList = expenses as any[];
-
-  const totalIncome = incomes.reduce(
-    (sum, item) => sum + Number(item.Importe || 0),
-    0
-  );
-
-  const totalExpenses = expenseList.reduce(
-    (sum, item) => sum + Number(item.Importe || 0),
-    0
-  );
-
-  const cashFlow = totalIncome - totalExpenses;
-
-  const savingsRate =
-    totalIncome > 0
-      ? (cashFlow / totalIncome) * 100
-      : 0;
+  const dashboard = getDashboard();
 
   const money = (value: number) =>
     new Intl.NumberFormat("es-ES", {
@@ -45,18 +26,18 @@ export default function ExecutiveSummary() {
 
           <h2
             className={`mt-2 text-5xl font-bold ${
-              cashFlow >= 0
+              dashboard.cashFlow >= 0
                 ? "text-emerald-400"
                 : "text-red-400"
             }`}
           >
-            {money(cashFlow)}
+            {money(dashboard.cashFlow)}
           </h2>
 
           <p className="mt-2 text-slate-400">
             Ahorro mensual del{" "}
             <strong>
-              {savingsRate.toFixed(1)}%
+              {dashboard.savingsRate.toFixed(1)}%
             </strong>
           </p>
 
@@ -71,7 +52,7 @@ export default function ExecutiveSummary() {
             </p>
 
             <p className="mt-2 text-2xl font-bold text-emerald-400">
-              {money(totalIncome)}
+              {money(dashboard.income)}
             </p>
 
           </div>
@@ -83,7 +64,7 @@ export default function ExecutiveSummary() {
             </p>
 
             <p className="mt-2 text-2xl font-bold text-red-400">
-              {money(totalExpenses)}
+              {money(dashboard.expenses)}
             </p>
 
           </div>
@@ -95,7 +76,7 @@ export default function ExecutiveSummary() {
             </p>
 
             <p className="mt-2 text-2xl font-bold text-sky-400">
-              {savingsRate.toFixed(1)}%
+              {dashboard.savingsRate.toFixed(1)}%
             </p>
 
           </div>

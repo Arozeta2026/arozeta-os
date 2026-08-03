@@ -1,20 +1,91 @@
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
+import {
+  getFinancialInsights,
+  FinancialInsight,
+} from "@/lib/financialRules";
 
 export default function AIAdvisor() {
+  const insights = getFinancialInsights();
+
+  const colorClasses: Record<
+    FinancialInsight["level"],
+    {
+      border: string;
+      bg: string;
+      icon: string;
+    }
+  > = {
+    success: {
+      border: "border-emerald-500/30",
+      bg: "bg-emerald-500/10",
+      icon: "🟢",
+    },
+    warning: {
+      border: "border-amber-500/30",
+      bg: "bg-amber-500/10",
+      icon: "🟡",
+    },
+    danger: {
+      border: "border-red-500/30",
+      bg: "bg-red-500/10",
+      icon: "🔴",
+    },
+    info: {
+      border: "border-sky-500/30",
+      bg: "bg-sky-500/10",
+      icon: "🔵",
+    },
+  };
+
   return (
     <ExecutiveCard
       title="AI Advisor"
-      subtitle="Resumen ejecutivo"
+      subtitle="Financial Intelligence Engine"
     >
-      <ul className="space-y-3 text-sm text-slate-300">
+      <div className="space-y-4">
 
-        <li>• El modelo financiero está sincronizado.</li>
+        {insights.map((insight, index) => {
 
-        <li>• Los ingresos se calculan automáticamente.</li>
+          const style = colorClasses[insight.level];
 
-        <li>• Próximamente se mostrarán recomendaciones inteligentes.</li>
+          return (
+            <div
+              key={index}
+              className={`
+                rounded-2xl
+                border
+                p-4
+                ${style.border}
+                ${style.bg}
+              `}
+            >
 
-      </ul>
+              <div className="flex items-start gap-3">
+
+                <div className="text-xl">
+                  {style.icon}
+                </div>
+
+                <div>
+
+                  <h4 className="font-semibold text-white">
+                    {insight.title}
+                  </h4>
+
+                  <p className="mt-1 text-sm text-slate-300">
+                    {insight.description}
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+          );
+
+        })}
+
+      </div>
     </ExecutiveCard>
   );
 }

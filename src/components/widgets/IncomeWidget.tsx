@@ -1,14 +1,18 @@
 import Link from "next/link";
-import income from "@/data/income.json";
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
 
-export default function IncomeWidget() {
-  const items = income as any[];
+import {
+  getIncome,
+  getTopIncome,
+  getTotalIncome,
+} from "@/services/incomeService";
 
-  const total = items.reduce(
-    (sum, item) => sum + Number(item.Importe || 0),
-    0
-  );
+export default function IncomeWidget() {
+  const items = getIncome();
+
+  const total = getTotalIncome();
+
+  const topIncome = getTopIncome();
 
   const money = (value: number) =>
     new Intl.NumberFormat("es-ES", {
@@ -16,12 +20,6 @@ export default function IncomeWidget() {
       currency: "EUR",
       maximumFractionDigits: 0,
     }).format(value);
-
-  const topIncome = [...items]
-    .sort(
-      (a, b) => Number(b.Importe || 0) - Number(a.Importe || 0)
-    )
-    .slice(0, 5);
 
   return (
     <ExecutiveCard
@@ -50,6 +48,7 @@ export default function IncomeWidget() {
               className="flex items-center justify-between rounded-xl bg-slate-800 px-4 py-3"
             >
               <div>
+
                 <p className="font-medium text-white">
                   {item.Concepto}
                 </p>
@@ -57,11 +56,13 @@ export default function IncomeWidget() {
                 <p className="text-sm text-slate-500">
                   {item.Empresa}
                 </p>
+
               </div>
 
               <span className="font-semibold text-emerald-400">
                 {money(Number(item.Importe))}
               </span>
+
             </div>
           ))}
 

@@ -1,14 +1,18 @@
 import Link from "next/link";
-import expenses from "@/data/expenses.json";
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
 
-export default function ExpensesWidget() {
-  const items = expenses as any[];
+import {
+  getExpenses,
+  getTopExpenses,
+  getTotalExpenses,
+} from "@/services/expenseService";
 
-  const total = items.reduce(
-    (sum, e) => sum + Number(e.Importe || 0),
-    0
-  );
+export default function ExpensesWidget() {
+  const items = getExpenses();
+
+  const total = getTotalExpenses();
+
+  const topExpenses = getTopExpenses();
 
   const money = (value: number) =>
     new Intl.NumberFormat("es-ES", {
@@ -17,14 +21,6 @@ export default function ExpensesWidget() {
       maximumFractionDigits: 0,
     }).format(value);
 
-  const topExpenses = [...items]
-    .sort(
-      (a, b) =>
-        Number(b.Importe || 0) -
-        Number(a.Importe || 0)
-    )
-    .slice(0, 5);
-
   return (
     <ExecutiveCard
       title="Expenses"
@@ -32,13 +28,13 @@ export default function ExpensesWidget() {
     >
       <div className="space-y-6">
 
-        <div className="rounded-2xl bg-slate-800 p-5">
+        <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-5">
 
           <p className="text-sm text-slate-400">
             Total mensual
           </p>
 
-          <p className="mt-2 text-4xl font-bold text-white">
+          <p className="mt-2 text-4xl font-bold text-red-400">
             {money(total)}
           </p>
 
@@ -47,12 +43,10 @@ export default function ExpensesWidget() {
         <div className="space-y-3">
 
           {topExpenses.map((expense, index) => (
-
             <div
               key={index}
               className="flex items-center justify-between rounded-xl bg-slate-800 px-4 py-3"
             >
-
               <div>
 
                 <p className="font-medium text-white">
@@ -70,14 +64,13 @@ export default function ExpensesWidget() {
               </span>
 
             </div>
-
           ))}
 
         </div>
 
         <Link
           href="/expenses"
-          className="block rounded-xl bg-sky-600 py-3 text-center font-semibold text-white transition hover:bg-sky-500"
+          className="block rounded-xl bg-red-600 py-3 text-center font-semibold text-white transition hover:bg-red-500"
         >
           Ver todos los gastos →
         </Link>

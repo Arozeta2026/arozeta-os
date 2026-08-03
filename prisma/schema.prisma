@@ -6,3 +6,178 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Company {
+  id        Int      @id @default(autoincrement())
+  name      String
+  legalName String?
+  ownership Float?
+  valuation Float?
+  dividends Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  incomes     Income[]
+  expenses    Expense[]
+  investments Investment[]
+  debts       Debt[]
+}
+
+model BankAccount {
+  id       Int    @id @default(autoincrement())
+  bank     String
+  iban     String
+  owner    String
+  balance  Float  @default(0)
+  currency String @default("EUR")
+  status   String @default("Active")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Income {
+  id Int @id @default(autoincrement())
+
+  concept String
+
+  companyId Int?
+
+  company Company? @relation(fields: [companyId], references: [id])
+
+  amount Float
+
+  periodicity String?
+
+  dueDate DateTime?
+
+  collectedDate DateTime?
+
+  status String?
+
+  notes String?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+model Expense {
+  id Int @id @default(autoincrement())
+
+  concept String
+
+  companyId Int?
+
+  company Company? @relation(fields: [companyId], references: [id])
+
+  amount Float
+
+  periodicity String?
+
+  dueDate DateTime?
+
+  paidDate DateTime?
+
+  status String?
+
+  notes String?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+model Investment {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  type String?
+
+  purchaseValue Float?
+
+  currentValue Float?
+
+  profitability Float?
+
+  companyId Int?
+
+  company Company? @relation(fields: [companyId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+model Debt {
+  id Int @id @default(autoincrement())
+
+  entity String
+
+  capital Float
+
+  interestRate Float?
+
+  monthlyPayment Float?
+
+  maturity DateTime?
+
+  status String?
+
+  companyId Int?
+
+  company Company? @relation(fields: [companyId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+model Property {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  value Float
+
+  mortgage Float?
+
+  rent Float?
+
+  expenses Float?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+model Goal {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  targetAmount Float
+
+  deadline DateTime?
+
+  priority Int?
+
+  completed Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id Int @id @default(autoincrement())
+
+  currency String @default("EUR")
+
+  locale String @default("es-ES")
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}

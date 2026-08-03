@@ -1,19 +1,20 @@
 import MainLayout from "@/components/layout/MainLayout";
-import { getIncome } from "@/services/income";
+import IncomeEditor from "@/components/income/IncomeEditor";
 
-export default function IncomePage() {
+import { getAllIncome } from "@/repositories/incomeRepository";
 
-  const income = getIncome();
+export default async function IncomePage() {
 
-  const money = (value: string) =>
+  const income = await getAllIncome();
+
+  const money = (value: number) =>
     new Intl.NumberFormat("es-ES", {
       style: "currency",
       currency: "EUR",
       maximumFractionDigits: 0,
-    }).format(Number(value || 0));
+    }).format(value);
 
   return (
-
     <MainLayout>
 
       <div className="space-y-8">
@@ -46,13 +47,29 @@ export default function IncomePage() {
 
               <tr className="text-left text-slate-400">
 
-                <th className="px-6 py-4">Concepto</th>
-                <th className="px-6 py-4">Empresa</th>
-                <th className="px-6 py-4">Importe</th>
-                <th className="px-6 py-4">Periodicidad</th>
-                <th className="px-6 py-4">Vencimiento</th>
-                <th className="px-6 py-4">Estado</th>
-                <th className="px-6 py-4"></th>
+                <th className="px-6 py-4">
+                  Concepto
+                </th>
+
+                <th className="px-6 py-4">
+                  Empresa
+                </th>
+
+                <th className="px-6 py-4 text-right">
+                  Importe
+                </th>
+
+                <th className="px-6 py-4">
+                  Periodicidad
+                </th>
+
+                <th className="px-6 py-4">
+                  Estado
+                </th>
+
+                <th className="px-6 py-4 text-right">
+                  Acción
+                </th>
 
               </tr>
 
@@ -60,46 +77,50 @@ export default function IncomePage() {
 
             <tbody>
 
-              {income.map((row, index) => (
+              {income.map((row) => (
 
                 <tr
-                  key={index}
+                  key={row.id}
                   className="border-t border-slate-800 hover:bg-slate-800/40"
                 >
 
                   <td className="px-6 py-4 text-white">
-                    {row.Concepto}
+                    {row.concept}
                   </td>
 
                   <td className="px-6 py-4 text-slate-300">
-                    {row.Empresa}
+                    {row.company?.name ?? "-"}
                   </td>
 
-                  <td className="px-6 py-4 text-white font-semibold">
-                    {money(row.Importe)}
-                  </td>
-
-                  <td className="px-6 py-4 text-slate-300">
-                    {row.Periodicidad}
+                  <td className="px-6 py-4 text-right font-semibold text-white">
+                    {money(row.amount)}
                   </td>
 
                   <td className="px-6 py-4 text-slate-300">
-                    {row.Vencimiento || "-"}
+                    {row.periodicity ?? "-"}
                   </td>
 
                   <td className="px-6 py-4">
 
                     <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm text-green-400">
-                      {row.Estado || "Activo"}
+
+                      {row.status ?? "Activo"}
+
                     </span>
 
                   </td>
 
                   <td className="px-6 py-4 text-right">
 
-                    <button className="rounded-lg border border-slate-700 px-3 py-1 text-slate-300 hover:bg-slate-700">
-                      Editar
-                    </button>
+                    <IncomeEditor
+                      income={{
+                        id: row.id,
+                        concept: row.concept,
+                        amount: row.amount,
+                        periodicity: row.periodicity,
+                        status: row.status,
+                      }}
+                    />
 
                   </td>
 
@@ -116,7 +137,6 @@ export default function IncomePage() {
       </div>
 
     </MainLayout>
-
   );
 
 }

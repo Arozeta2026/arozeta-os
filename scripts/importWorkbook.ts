@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 
 import { buildFinancialModel } from "../src/engine/importEngine";
+import { importIncome } from "../src/importers/importIncome";
 
 const workbookPath = path.join(
   process.cwd(),
@@ -49,5 +50,21 @@ save("debt", model.debt);
 
 console.log("");
 console.log("========================================");
-console.log("IMPORTACIÓN FINALIZADA");
+console.log("IMPORTANDO SQLITE");
 console.log("========================================");
+
+async function run() {
+  await importIncome(workbook);
+
+  console.log("");
+  console.log("========================================");
+  console.log("IMPORTACIÓN FINALIZADA");
+  console.log("========================================");
+}
+
+run()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

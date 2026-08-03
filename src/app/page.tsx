@@ -1,105 +1,113 @@
 import MainLayout from "@/components/layout/MainLayout";
-import StatCard from "@/components/ui/StatCard";
-import { getDashboard } from "@/services/dashboard";
+import KPIBar from "@/components/executive/KPIBar";
 
-export default function Dashboard() {
-
-  const dashboard = getDashboard();
-
-  const money = (value: number) =>
-    new Intl.NumberFormat("es-ES", {
-      style: "currency",
-      currency: "EUR",
-      maximumFractionDigits: 0,
-    }).format(value);
-
+export default function MissionControl() {
   return (
     <MainLayout>
 
       <div className="space-y-8">
 
-        <div>
-          <h1 className="text-4xl font-bold text-white">
-            Executive Cockpit
-          </h1>
+        <header className="flex items-center justify-between">
 
-          <p className="text-slate-400">
-            Financial Operating System
-          </p>
-        </div>
+          <div>
 
-        <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <h1 className="text-5xl font-bold tracking-tight text-white">
+              Mission Control
+            </h1>
 
-          <StatCard
-            title="Cash Position"
-            value={money(dashboard.cash)}
-            variation="Live"
-          />
+            <p className="mt-2 text-slate-400">
+              Executive Financial Operating System
+            </p>
 
-          <StatCard
-            title="Net Worth"
-            value={money(dashboard.netWorth)}
-            variation="Live"
-          />
+          </div>
 
-          <StatCard
-            title="Debt"
-            value={money(dashboard.debt)}
-            variation="Live"
-            positive={false}
-          />
+          <div className="flex items-center gap-3">
 
-          <StatCard
-            title="Cash Flow"
-            value={money(dashboard.cashFlow)}
-            variation="Live"
-            positive={dashboard.cashFlow >= 0}
-          />
+            <button className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300 hover:bg-slate-800">
+              Consolidado
+            </button>
 
-        </section>
+            <button className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300 hover:bg-slate-800">
+              Agosto 2026
+            </button>
 
-        <div className="grid grid-cols-2 gap-6">
+          </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+        </header>
 
-            <h2 className="text-xl font-semibold text-white mb-5">
-              Financial Summary
-            </h2>
+        <KPIBar />
 
-            <div className="space-y-4 text-slate-300">
+        <div className="grid grid-cols-12 gap-6">
 
-              <div className="flex justify-between">
-                <span>Monthly Income</span>
-                <strong>{money(dashboard.monthlyIncome)}</strong>
+          <div className="col-span-8 rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
+
+            <div className="mb-6 flex items-center justify-between">
+
+              <div>
+
+                <h2 className="text-xl font-semibold text-white">
+                  Evolución de Tesorería
+                </h2>
+
+                <p className="text-slate-500">
+                  Próximamente conectado a datos reales
+                </p>
+
               </div>
 
-              <div className="flex justify-between">
-                <span>Monthly Expenses</span>
-                <strong>{money(dashboard.monthlyExpenses)}</strong>
+              <div className="flex gap-2">
+
+                <button className="rounded-lg bg-sky-600 px-3 py-1 text-sm text-white">
+                  30D
+                </button>
+
+                <button className="rounded-lg bg-slate-800 px-3 py-1 text-sm text-slate-400">
+                  90D
+                </button>
+
+                <button className="rounded-lg bg-slate-800 px-3 py-1 text-sm text-slate-400">
+                  1A
+                </button>
+
               </div>
 
-              <div className="flex justify-between">
-                <span>Freedom Score</span>
-                <strong>{dashboard.freedomScore}</strong>
-              </div>
+            </div>
+
+            <div className="flex h-[420px] items-center justify-center rounded-2xl border border-dashed border-slate-700">
+
+              <span className="text-slate-500">
+                TreasuryChart (Sprint 1.4)
+              </span>
 
             </div>
 
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+          <div className="col-span-4 space-y-6">
 
-            <h2 className="text-xl font-semibold text-white mb-5">
-              AI Advisor
-            </h2>
+            <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
 
-            <ul className="space-y-3 text-slate-300">
+              <h3 className="mb-5 text-lg font-semibold text-white">
+                Próximos Pagos
+              </h3>
 
-              <li>• Cash Flow actualizado automáticamente.</li>
-              <li>• Patrimonio calculado desde el modelo financiero.</li>
-              <li>• Próximamente: recomendaciones inteligentes.</li>
+              <p className="text-slate-500">
+                Se conectará con debt.json
+              </p>
 
-            </ul>
+            </div>
+
+            <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
+
+              <h3 className="mb-5 text-lg font-semibold text-white">
+                Alertas
+              </h3>
+
+              <p className="text-slate-500">
+                AI Advisor
+              </p>
+
+            </div>
 
           </div>
 

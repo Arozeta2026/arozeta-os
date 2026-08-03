@@ -4,19 +4,18 @@ import ExecutiveSummary from "./ExecutiveSummary";
 
 import IncomeWidget from "@/components/widgets/IncomeWidget";
 import ExpensesWidget from "@/components/widgets/ExpensesWidget";
-
-import IncomeExpenseChart from "@/components/charts/IncomeExpenseChart";
-import NetWorthChart from "@/components/charts/NetWorthChart";
-
+import CompaniesWidget from "@/components/widgets/CompaniesWidget";
+import TreasuryWidget from "@/components/widgets/TreasuryWidget";
 import UpcomingPayments from "@/components/widgets/UpcomingPayments";
-import BankBalances from "@/components/widgets/BankBalances";
 import AIAdvisor from "@/components/widgets/AIAdvisor";
+
+import NetWorthChart from "@/components/charts/NetWorthChart";
 
 export default function MissionControl() {
   return (
     <div className="space-y-8">
 
-      {/* HEADER */}
+      {/* Header */}
 
       <section className="flex items-end justify-between">
 
@@ -27,62 +26,37 @@ export default function MissionControl() {
           </h1>
 
           <p className="mt-2 text-slate-400">
-            Executive Financial Operating System
+            Financial Operating System
           </p>
-
-        </div>
-
-        <div className="flex gap-3">
-
-          <button className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300 transition hover:bg-slate-800">
-            Consolidado
-          </button>
-
-          <button className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300 transition hover:bg-slate-800">
-            Agosto 2026
-          </button>
 
         </div>
 
       </section>
 
-      {/* KPI BAR */}
-
       <KPIBar />
-
-      {/* EXECUTIVE SUMMARY */}
 
       <ExecutiveSummary />
 
-      {/* MISSION CONTROL */}
+      <ExecutiveGrid>
 
-      <ExecutiveGrid
-        left={<IncomeWidget />}
+        <div className="grid grid-cols-2 gap-6">
+          <IncomeWidget />
+          <ExpensesWidget />
+        </div>
 
-        right={<ExpensesWidget />}
+        <div className="grid grid-cols-2 gap-6">
+          <NetWorthChart />
+          <TreasuryWidget />
+        </div>
 
-        bottomLeft={
-          <div className="space-y-6">
+        <div className="grid grid-cols-2 gap-6">
+          <CompaniesWidget />
+          <UpcomingPayments />
+        </div>
 
-            <IncomeExpenseChart />
+        <AIAdvisor />
 
-            <NetWorthChart />
-
-          </div>
-        }
-
-        bottomRight={
-          <div className="space-y-6">
-
-            <UpcomingPayments />
-
-            <BankBalances />
-
-            <AIAdvisor />
-
-          </div>
-        }
-      />
+      </ExecutiveGrid>
 
     </div>
   );

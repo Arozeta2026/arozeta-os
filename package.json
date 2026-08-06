@@ -6,16 +6,23 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "import": "tsx scripts/importWorkbook.ts",
+    "validate": "tsx scripts/validateWorkbook.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "@types/xlsx": "^0.0.35",
     "clsx": "^2.1.1",
     "framer-motion": "^12.43.0",
-    "lucide-react": "^1.28.0",
+    "lucide-react": "^1.29.0",
     "next": "16.2.12",
+    "prisma": "^6.19.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "recharts": "^3.10.1",
+    "tsx": "^4.23.5",
+    "xlsx": "^0.18.5",
     "zustand": "^5.0.14"
   },
   "devDependencies": {

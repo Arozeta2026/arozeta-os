@@ -1,0 +1,20 @@
+[
+  {
+    "ID": "",
+    "Entidad": "BBVA",
+    "Capital": "184245.89",
+    "Cuota": "350",
+    "Interés": "Mensual",
+    "Vencimiento": "6/2/31",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Entidad": "Inversis",
+    "Capital": "230000",
+    "Cuota": "",
+    "Interés": "",
+    "Vencimiento": "",
+    "Estado": ""
+  }
+]

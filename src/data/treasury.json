@@ -1,0 +1,56 @@
+[
+  {
+    "ID": "",
+    "Banco": "Santander",
+    "IBAN": "ES64 0049 1803 5125 1179 3163",
+    "Titular": "arozeta enterprises S.L",
+    "Saldo": "",
+    "Moneda": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Banco": "Santander",
+    "IBAN": "ES34 0049 5147 4720 1663 9094",
+    "Titular": "Juan Guruceta Arenas",
+    "Saldo": "",
+    "Moneda": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Banco": "BBVA",
+    "IBAN": "ES7101820936030201646483",
+    "Titular": "arozeta enterprises S.L",
+    "Saldo": "",
+    "Moneda": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Banco": "BBVA",
+    "IBAN": "ES76 0182 0936 0202 0158 2907",
+    "Titular": "Juan Guruceta Arenas",
+    "Saldo": "",
+    "Moneda": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Banco": "Inversis",
+    "IBAN": "ES3202320581500045512230",
+    "Titular": "Arozeta Enterprises S.L",
+    "Saldo": "",
+    "Moneda": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Banco": "INversis",
+    "IBAN": "ES6902320581510044433651",
+    "Titular": "Juan Guruceta Arenas",
+    "Saldo": "",
+    "Moneda": "",
+    "Estado": ""
+  }
+]

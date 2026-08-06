@@ -9,11 +9,13 @@ import {
 
 type SidebarContextType = {
   collapsed: boolean;
+  setCollapsed: (collapsed: boolean) => void;
   toggle: () => void;
 };
 
 const SidebarContext = createContext<SidebarContextType>({
   collapsed: false,
+  setCollapsed: () => {},
   toggle: () => {},
 });
 
@@ -24,11 +26,16 @@ export function SidebarProvider({
 }) {
   const [collapsed, setCollapsed] = useState(false);
 
+  function toggle() {
+    setCollapsed((previous) => !previous);
+  }
+
   return (
     <SidebarContext.Provider
       value={{
         collapsed,
-        toggle: () => setCollapsed(!collapsed),
+        setCollapsed,
+        toggle,
       }}
     >
       {children}
@@ -37,5 +44,13 @@ export function SidebarProvider({
 }
 
 export function useSidebar() {
-  return useContext(SidebarContext);
+  const context = useContext(SidebarContext);
+
+  if (!context) {
+    throw new Error(
+      "useSidebar must be used inside SidebarProvider"
+    );
+  }
+
+  return context;
 }

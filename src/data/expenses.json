@@ -1,0 +1,142 @@
+[
+  {
+    "ID": "",
+    "Concepto": "Alquiler vivienda",
+    "Empresa": "Juan Guruceta",
+    "Importe": "2600",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Colegios",
+    "Empresa": "Juan Guruceta",
+    "Importe": "2232",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Psicóloga Juan",
+    "Empresa": "Juan Guruceta",
+    "Importe": "320",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "renting Mercedes Benz",
+    "Empresa": "Arozeta Enterprises",
+    "Importe": "1212",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "3/1/28",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Préstamo Audi Q5",
+    "Empresa": "Arozeta Enterprises",
+    "Importe": "491",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Pensión compensatoria",
+    "Empresa": "Juan Guruceta",
+    "Importe": "600",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "8/1/28",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Clases Inglés Niños",
+    "Empresa": "Juan Guruceta",
+    "Importe": "80",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Alquiler Piano",
+    "Empresa": "Juan Guruceta",
+    "Importe": "72",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Seguro de Salud",
+    "Empresa": "Juan Guruceta",
+    "Importe": "4272",
+    "Periodicidad": "Anual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Spotify",
+    "Empresa": "Juan Guruceta",
+    "Importe": "12",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Ortodoncia Juan",
+    "Empresa": "Juan Guruceta",
+    "Importe": "190",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Préstamo Juan",
+    "Empresa": "Juan Guruceta",
+    "Importe": "349.91",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Gestoría",
+    "Empresa": "Arozeta Enterprises",
+    "Importe": "438",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  },
+  {
+    "ID": "",
+    "Concepto": "Valsan Mudanzas",
+    "Empresa": "Arozeta Enterprises",
+    "Importe": "117",
+    "Periodicidad": "Mensual",
+    "Vencimiento": "",
+    "Pagado el": "",
+    "Estado": ""
+  }
+]

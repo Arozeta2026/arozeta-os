@@ -1,0 +1,23 @@
+[
+  {
+    "ID": "",
+    "Activo": "",
+    "Tipo": "",
+    "Valor": "432551.01",
+    "Rentabilidad": ""
+  },
+  {
+    "ID": "1",
+    "Activo": "IAG",
+    "Tipo": "acción",
+    "Valor": "423860.45",
+    "Rentabilidad": ""
+  },
+  {
+    "ID": "2",
+    "Activo": "amazon",
+    "Tipo": "acción",
+    "Valor": "8690.56",
+    "Rentabilidad": ""
+  }
+]

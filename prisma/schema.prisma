@@ -22,10 +22,20 @@ enum RecordStatus {
   FINISHED
 }
 
+enum AccountType {
+  CHECKING
+  SAVINGS
+  BROKER
+  CREDIT
+  WALLET
+}
+
 model Company {
   id          Int          @id @default(autoincrement())
+
   name        String
   legalName   String?
+
   ownership   Float?
   valuation   Float?
   dividends   Float?
@@ -40,15 +50,30 @@ model Company {
 }
 
 model BankAccount {
-  id        Int      @id @default(autoincrement())
-  bank      String
-  iban      String
-  owner     String
-  balance   Float    @default(0)
-  currency  String   @default("EUR")
-  status    String   @default("Active")
+  id Int @id @default(autoincrement())
+
+  name String
+
+  bank String
+
+  iban String?
+
+  owner String?
+
+  currency String @default("EUR")
+
+  balance Float @default(0)
+
+  availableBalance Float @default(0)
+
+  accountType AccountType @default(CHECKING)
+
+  status RecordStatus @default(ACTIVE)
+
+  notes String?
 
   createdAt DateTime @default(now())
+
   updatedAt DateTime @updatedAt
 }
 

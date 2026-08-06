@@ -1,5 +1,11 @@
+import {
+  getMonthlyExpenseTotal,
+  getAnnualExpenseTotal,
+  getActiveExpensesCount,
+  getRecurringExpensesCount,
+} from "./expenseService";
+
 import { getTotalIncome } from "./incomeService";
-import { getTotalExpenses } from "./expenseService";
 import { getCompanyCount } from "./companyService";
 import { getInvestmentValue } from "./investmentService";
 import { getTotalDebt } from "./debtService";
@@ -13,6 +19,7 @@ import {
 export interface DashboardData {
   income: number;
   expenses: number;
+  annualExpenses: number;
   cashFlow: number;
   savingsRate: number;
 
@@ -23,28 +30,36 @@ export interface DashboardData {
 
   financialNetWorth: number;
 
+  activeExpenses: number;
+  recurringExpenses: number;
+
   insights: FinancialInsight[];
 }
 
-export function getDashboard(): DashboardData {
-  const income = getTotalIncome();
+export async function getDashboard(): Promise<DashboardData> {
+  const [
+    expenses,
+    annualExpenses,
+    activeExpenses,
+    recurringExpenses,
+  ] = await Promise.all([
+    getMonthlyExpenseTotal(),
+    getAnnualExpenseTotal(),
+    getActiveExpensesCount(),
+    getRecurringExpensesCount(),
+  ]);
 
-  const expenses = getTotalExpenses();
+  // TODO: Estos servicios se migrarán a Prisma.
+  const income = getTotalIncome();
+  const companies = getCompanyCount();
+  const investments = getInvestmentValue();
+  const debt = getTotalDebt();
+  const treasury = getTreasuryBalance();
 
   const cashFlow = income - expenses;
 
   const savingsRate =
-    income > 0
-      ? (cashFlow / income) * 100
-      : 0;
-
-  const companies = getCompanyCount();
-
-  const investments = getInvestmentValue();
-
-  const debt = getTotalDebt();
-
-  const treasury = getTreasuryBalance();
+    income > 0 ? (cashFlow / income) * 100 : 0;
 
   const financialNetWorth =
     investments +
@@ -65,6 +80,7 @@ export function getDashboard(): DashboardData {
   return {
     income,
     expenses,
+    annualExpenses,
     cashFlow,
     savingsRate,
 
@@ -74,6 +90,9 @@ export function getDashboard(): DashboardData {
     treasury,
 
     financialNetWorth,
+
+    activeExpenses,
+    recurringExpenses,
 
     insights,
   };

@@ -1,8 +1,8 @@
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
 import { getDashboard } from "@/services/dashboardService";
 
-export default function ExecutiveSummary() {
-  const dashboard = getDashboard();
+export default async function ExecutiveSummary() {
+  const dashboard = await getDashboard();
 
   const money = (value: number) =>
     new Intl.NumberFormat("es-ES", {

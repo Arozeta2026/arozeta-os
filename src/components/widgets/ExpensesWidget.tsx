@@ -1,18 +1,20 @@
 import Link from "next/link";
+
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
 
 import {
   getExpenses,
-  getTopExpenses,
-  getTotalExpenses,
+  getMonthlyExpenseTotal,
 } from "@/services/expenseService";
 
-export default function ExpensesWidget() {
-  const items = getExpenses();
+export default async function ExpensesWidget() {
+  const items = await getExpenses();
 
-  const total = getTotalExpenses();
+  const total = await getMonthlyExpenseTotal();
 
-  const topExpenses = getTopExpenses();
+  const topExpenses = [...items]
+    .sort((a, b) => b.amount - a.amount)
+    .slice(0, 5);
 
   const money = (value: number) =>
     new Intl.NumberFormat("es-ES", {
@@ -42,25 +44,25 @@ export default function ExpensesWidget() {
 
         <div className="space-y-3">
 
-          {topExpenses.map((expense, index) => (
+          {topExpenses.map((expense) => (
             <div
-              key={index}
+              key={expense.id}
               className="flex items-center justify-between rounded-xl bg-slate-800 px-4 py-3"
             >
               <div>
 
                 <p className="font-medium text-white">
-                  {expense.Concepto}
+                  {expense.concept}
                 </p>
 
                 <p className="text-sm text-slate-500">
-                  {expense.Empresa}
+                  {expense.recurrence}
                 </p>
 
               </div>
 
               <span className="font-semibold text-red-400">
-                {money(Number(expense.Importe))}
+                {money(expense.amount)}
               </span>
 
             </div>

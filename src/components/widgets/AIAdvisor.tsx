@@ -1,8 +1,8 @@
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
 import { getDashboard } from "@/services/dashboardService";
 
-export default function AIAdvisor() {
-  const dashboard = getDashboard();
+export default async function AIAdvisor() {
+  const dashboard = await getDashboard();
 
   const styles = {
     success: {
@@ -28,9 +28,7 @@ export default function AIAdvisor() {
       subtitle="Financial Intelligence Engine"
     >
       <div className="space-y-4">
-
         {dashboard.insights.map((insight, index) => {
-
           const style = styles[insight.severity];
 
           return (
@@ -45,13 +43,9 @@ export default function AIAdvisor() {
               `}
             >
               <div className="flex items-start gap-3">
-
-                <div className="text-xl">
-                  {style.icon}
-                </div>
+                <div className="text-xl">{style.icon}</div>
 
                 <div>
-
                   <h4 className="font-semibold text-white">
                     {insight.title}
                   </h4>
@@ -59,16 +53,11 @@ export default function AIAdvisor() {
                   <p className="mt-1 text-sm text-slate-300">
                     {insight.description}
                   </p>
-
                 </div>
-
               </div>
-
             </div>
           );
-
         })}
-
       </div>
     </ExecutiveCard>
   );

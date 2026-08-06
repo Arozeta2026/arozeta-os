@@ -7,15 +7,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Recurrence {
+  ONCE
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  SEMIANNUAL
+  ANNUAL
+}
+
+enum RecordStatus {
+  ACTIVE
+  PAUSED
+  FINISHED
+}
+
 model Company {
-  id        Int      @id @default(autoincrement())
-  name      String
-  legalName String?
-  ownership Float?
-  valuation Float?
-  dividends Float?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int          @id @default(autoincrement())
+  name        String
+  legalName   String?
+  ownership   Float?
+  valuation   Float?
+  dividends   Float?
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
   incomes     Income[]
   expenses    Expense[]
@@ -24,13 +40,13 @@ model Company {
 }
 
 model BankAccount {
-  id       Int    @id @default(autoincrement())
-  bank     String
-  iban     String
-  owner    String
-  balance  Float  @default(0)
-  currency String @default("EUR")
-  status   String @default("Active")
+  id        Int      @id @default(autoincrement())
+  bank      String
+  iban      String
+  owner     String
+  balance   Float    @default(0)
+  currency  String   @default("EUR")
+  status    String   @default("Active")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -41,19 +57,19 @@ model Income {
 
   concept String
 
+  amount Float
+
+  recurrence Recurrence
+
+  startDate DateTime
+
+  endDate DateTime?
+
+  status RecordStatus @default(ACTIVE)
+
   companyId Int?
 
   company Company? @relation(fields: [companyId], references: [id])
-
-  amount Float
-
-  periodicity String?
-
-  dueDate DateTime?
-
-  collectedDate DateTime?
-
-  status String?
 
   notes String?
 
@@ -67,19 +83,19 @@ model Expense {
 
   concept String
 
+  amount Float
+
+  recurrence Recurrence
+
+  startDate DateTime
+
+  endDate DateTime?
+
+  status RecordStatus @default(ACTIVE)
+
   companyId Int?
 
   company Company? @relation(fields: [companyId], references: [id])
-
-  amount Float
-
-  periodicity String?
-
-  dueDate DateTime?
-
-  paidDate DateTime?
-
-  status String?
 
   notes String?
 

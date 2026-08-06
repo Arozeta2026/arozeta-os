@@ -1,20 +1,10 @@
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
-import {
-  getFinancialInsights,
-  FinancialInsight,
-} from "@/lib/financialRules";
+import { getDashboard } from "@/services/dashboardService";
 
 export default function AIAdvisor() {
-  const insights = getFinancialInsights();
+  const dashboard = getDashboard();
 
-  const colorClasses: Record<
-    FinancialInsight["level"],
-    {
-      border: string;
-      bg: string;
-      icon: string;
-    }
-  > = {
+  const styles = {
     success: {
       border: "border-emerald-500/30",
       bg: "bg-emerald-500/10",
@@ -30,11 +20,6 @@ export default function AIAdvisor() {
       bg: "bg-red-500/10",
       icon: "🔴",
     },
-    info: {
-      border: "border-sky-500/30",
-      bg: "bg-sky-500/10",
-      icon: "🔵",
-    },
   };
 
   return (
@@ -44,9 +29,9 @@ export default function AIAdvisor() {
     >
       <div className="space-y-4">
 
-        {insights.map((insight, index) => {
+        {dashboard.insights.map((insight, index) => {
 
-          const style = colorClasses[insight.level];
+          const style = styles[insight.severity];
 
           return (
             <div
@@ -59,7 +44,6 @@ export default function AIAdvisor() {
                 ${style.bg}
               `}
             >
-
               <div className="flex items-start gap-3">
 
                 <div className="text-xl">

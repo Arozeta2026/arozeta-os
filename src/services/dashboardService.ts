@@ -5,6 +5,11 @@ import { getInvestmentValue } from "./investmentService";
 import { getTotalDebt } from "./debtService";
 import { getTreasuryBalance } from "./treasuryService";
 
+import {
+  getFinancialInsights,
+  FinancialInsight,
+} from "@/lib/financial/insights";
+
 export interface DashboardData {
   income: number;
   expenses: number;
@@ -17,10 +22,13 @@ export interface DashboardData {
   treasury: number;
 
   financialNetWorth: number;
+
+  insights: FinancialInsight[];
 }
 
 export function getDashboard(): DashboardData {
   const income = getTotalIncome();
+
   const expenses = getTotalExpenses();
 
   const cashFlow = income - expenses;
@@ -43,6 +51,17 @@ export function getDashboard(): DashboardData {
     treasury -
     debt;
 
+  const insights = getFinancialInsights({
+    income,
+    expenses,
+    cashFlow,
+    savingsRate,
+    investments,
+    debt,
+    treasury,
+    companies,
+  });
+
   return {
     income,
     expenses,
@@ -55,5 +74,7 @@ export function getDashboard(): DashboardData {
     treasury,
 
     financialNetWorth,
+
+    insights,
   };
 }

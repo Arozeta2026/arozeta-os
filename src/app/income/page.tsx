@@ -4,7 +4,6 @@ import IncomeEditor from "@/components/income/IncomeEditor";
 import { getAllIncome } from "@/repositories/incomeRepository";
 
 export default async function IncomePage() {
-
   const income = await getAllIncome();
 
   const money = (value: number) =>
@@ -14,9 +13,17 @@ export default async function IncomePage() {
       maximumFractionDigits: 0,
     }).format(value);
 
+  const recurrenceLabel: Record<string, string> = {
+    ONCE: "Único",
+    WEEKLY: "Semanal",
+    MONTHLY: "Mensual",
+    QUARTERLY: "Trimestral",
+    SEMIANNUAL: "Semestral",
+    ANNUAL: "Anual",
+  };
+
   return (
     <MainLayout>
-
       <div className="space-y-8">
 
         <div className="flex items-center justify-between">
@@ -60,7 +67,7 @@ export default async function IncomePage() {
                 </th>
 
                 <th className="px-6 py-4">
-                  Periodicidad
+                  Recurrencia
                 </th>
 
                 <th className="px-6 py-4">
@@ -97,14 +104,14 @@ export default async function IncomePage() {
                   </td>
 
                   <td className="px-6 py-4 text-slate-300">
-                    {row.periodicity ?? "-"}
+                    {recurrenceLabel[row.recurrence] ?? row.recurrence}
                   </td>
 
                   <td className="px-6 py-4">
 
                     <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm text-green-400">
 
-                      {row.status ?? "Activo"}
+                      {row.status}
 
                     </span>
 
@@ -117,7 +124,7 @@ export default async function IncomePage() {
                         id: row.id,
                         concept: row.concept,
                         amount: row.amount,
-                        periodicity: row.periodicity,
+                        recurrence: row.recurrence,
                         status: row.status,
                       }}
                     />
@@ -135,8 +142,6 @@ export default async function IncomePage() {
         </div>
 
       </div>
-
     </MainLayout>
   );
-
 }

@@ -21,13 +21,17 @@ export default function Sidebar() {
 
   return (
     <aside className="flex w-72 flex-col border-r border-slate-800 bg-[#0B1120]">
+
       <div className="border-b border-slate-800 px-8 py-8">
+
         <div className="flex items-center gap-3">
+
           <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-600 text-lg font-bold text-white">
             A
           </div>
 
           <div>
+
             <h1 className="text-xl font-bold tracking-wide text-white">
               AROZETA
             </h1>
@@ -35,16 +39,21 @@ export default function Sidebar() {
             <p className="text-xs uppercase tracking-[0.25em] text-slate-500">
               Financial OS
             </p>
+
           </div>
+
         </div>
+
       </div>
 
       <nav className="flex-1 px-5 py-6">
+
         <p className="mb-4 px-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
           Navigation
         </p>
 
         <div className="space-y-1">
+
           {menu.map((item) => {
             const active = pathname === item.href;
 
@@ -68,16 +77,21 @@ export default function Sidebar() {
               </Link>
             );
           })}
+
         </div>
+
       </nav>
 
       <div className="border-t border-slate-800 p-5">
+
         <div className="flex items-center gap-3 rounded-2xl bg-slate-900/70 p-4">
+
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-600 font-bold text-white">
             JG
           </div>
 
           <div>
+
             <p className="font-semibold text-white">
               Juan Guruceta
             </p>
@@ -85,9 +99,13 @@ export default function Sidebar() {
             <p className="text-sm text-slate-500">
               CEO · Arozeta
             </p>
+
           </div>
+
         </div>
+
       </div>
+
     </aside>
   );
 }

@@ -42,19 +42,22 @@ export async function getDashboard(): Promise<DashboardData> {
     annualExpenses,
     activeExpenses,
     recurringExpenses,
+    income,
+    companies,
+    investments,
+    debt,
+    treasury,
   ] = await Promise.all([
     getMonthlyExpenseTotal(),
     getAnnualExpenseTotal(),
     getActiveExpensesCount(),
     getRecurringExpensesCount(),
+    getTotalIncome(),
+    getCompanyCount(),
+    getInvestmentValue(),
+    getTotalDebt(),
+    getTreasuryBalance(),
   ]);
-
-  // TODO: Estos servicios se migrarán a Prisma.
-  const income = getTotalIncome();
-  const companies = getCompanyCount();
-  const investments = getInvestmentValue();
-  const debt = getTotalDebt();
-  const treasury = getTreasuryBalance();
 
   const cashFlow = income - expenses;
 

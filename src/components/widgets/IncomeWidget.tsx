@@ -2,17 +2,17 @@ import Link from "next/link";
 import ExecutiveCard from "@/components/ui/ExecutiveCard";
 
 import {
-  getIncome,
+  getAllIncome,
   getTopIncome,
   getTotalIncome,
 } from "@/services/incomeService";
 
-export default function IncomeWidget() {
-  const items = getIncome();
+export default async function IncomeWidget() {
+  const items = await getAllIncome();
 
-  const total = getTotalIncome();
+  const total = await getTotalIncome();
 
-  const topIncome = getTopIncome();
+  const topIncome = await getTopIncome();
 
   const money = (value: number) =>
     new Intl.NumberFormat("es-ES", {
@@ -31,7 +31,7 @@ export default function IncomeWidget() {
         <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-5">
 
           <p className="text-sm text-slate-400">
-            Total mensual
+            Total anual
           </p>
 
           <p className="mt-2 text-4xl font-bold text-emerald-400">
@@ -42,25 +42,25 @@ export default function IncomeWidget() {
 
         <div className="space-y-3">
 
-          {topIncome.map((item, index) => (
+          {topIncome.map((item) => (
             <div
-              key={index}
+              key={item.id}
               className="flex items-center justify-between rounded-xl bg-slate-800 px-4 py-3"
             >
               <div>
 
                 <p className="font-medium text-white">
-                  {item.Concepto}
+                  {item.concept}
                 </p>
 
                 <p className="text-sm text-slate-500">
-                  {item.Empresa}
+                  {item.company?.name ?? "-"}
                 </p>
 
               </div>
 
               <span className="font-semibold text-emerald-400">
-                {money(Number(item.Importe))}
+                {money(item.amount)}
               </span>
 
             </div>

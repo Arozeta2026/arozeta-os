@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Recurrence, RecordStatus } from "@prisma/client";
+
 import SidePanel from "@/components/forms/SidePanel";
 import { updateIncome } from "@/actions/income";
 
@@ -9,38 +11,34 @@ interface Props {
     id: number;
     concept: string;
     amount: number;
-    periodicity: string | null;
-    status: string | null;
+    recurrence: Recurrence;
+    status: RecordStatus;
   };
 }
 
 export default function IncomeEditor({ income }: Props) {
-
   const [open, setOpen] = useState(false);
 
   const [concept, setConcept] = useState(income.concept);
-
   const [amount, setAmount] = useState(income.amount);
 
-  const [periodicity, setPeriodicity] = useState(
-    income.periodicity ?? ""
+  const [recurrence, setRecurrence] = useState<Recurrence>(
+    income.recurrence
   );
 
-  const [status, setStatus] = useState(
-    income.status ?? ""
+  const [status, setStatus] = useState<RecordStatus>(
+    income.status
   );
 
   async function save() {
-
     await updateIncome(income.id, {
       concept,
       amount,
-      periodicity,
+      recurrence,
       status,
     });
 
     setOpen(false);
-
   }
 
   return (
@@ -56,7 +54,6 @@ export default function IncomeEditor({ income }: Props) {
         open={open}
         onClose={() => setOpen(false)}
       >
-
         <h2 className="mb-8 text-2xl font-bold text-white">
           Editar ingreso
         </h2>
@@ -78,21 +75,33 @@ export default function IncomeEditor({ income }: Props) {
             }
           />
 
-          <input
+          <select
             className="w-full rounded-lg bg-slate-800 p-3 text-white"
-            value={periodicity}
+            value={recurrence}
             onChange={(e) =>
-              setPeriodicity(e.target.value)
+              setRecurrence(e.target.value as Recurrence)
             }
-          />
+          >
+            <option value="ONCE">Único</option>
+            <option value="WEEKLY">Semanal</option>
+            <option value="MONTHLY">Mensual</option>
+            <option value="QUARTERLY">Trimestral</option>
+            <option value="SEMIANNUAL">Semestral</option>
+            <option value="ANNUAL">Anual</option>
+          </select>
 
-          <input
+          <select
             className="w-full rounded-lg bg-slate-800 p-3 text-white"
             value={status}
             onChange={(e) =>
-              setStatus(e.target.value)
+              setStatus(e.target.value as RecordStatus)
             }
-          />
+          >
+            <option value="ACTIVE">Activo</option>
+            <option value="INACTIVE">Inactivo</option>
+            <option value="COMPLETED">Completado</option>
+            <option value="CANCELLED">Cancelado</option>
+          </select>
 
           <button
             onClick={save}
@@ -102,10 +111,7 @@ export default function IncomeEditor({ income }: Props) {
           </button>
 
         </div>
-
       </SidePanel>
-
     </>
   );
-
 }

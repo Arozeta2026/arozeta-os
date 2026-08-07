@@ -2,15 +2,18 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { Recurrence, RecordStatus } from "@prisma/client";
+
+interface UpdateIncomeInput {
+  concept: string;
+  amount: number;
+  recurrence: Recurrence;
+  status: RecordStatus;
+}
 
 export async function updateIncome(
   id: number,
-  data: {
-    concept: string;
-    amount: number;
-    periodicity: string;
-    status: string;
-  }
+  data: UpdateIncomeInput
 ) {
   await prisma.income.update({
     where: {
@@ -19,7 +22,7 @@ export async function updateIncome(
     data: {
       concept: data.concept,
       amount: data.amount,
-      periodicity: data.periodicity,
+      recurrence: data.recurrence,
       status: data.status,
     },
   });

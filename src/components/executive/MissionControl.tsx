@@ -14,13 +14,8 @@ import NetWorthChart from "@/components/charts/NetWorthChart";
 export default function MissionControl() {
   return (
     <div className="space-y-8">
-
-      {/* Header */}
-
       <section className="flex items-end justify-between">
-
         <div>
-
           <h1 className="text-5xl font-bold tracking-tight text-white">
             Mission Control
           </h1>
@@ -28,9 +23,7 @@ export default function MissionControl() {
           <p className="mt-2 text-slate-400">
             Financial Operating System
           </p>
-
         </div>
-
       </section>
 
       <KPIBar />
@@ -38,26 +31,23 @@ export default function MissionControl() {
       <ExecutiveSummary />
 
       <ExecutiveGrid>
-
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           <IncomeWidget />
           <ExpensesWidget />
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           <NetWorthChart />
           <TreasuryWidget />
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           <CompaniesWidget />
           <UpcomingPayments />
         </div>
 
         <AIAdvisor />
-
       </ExecutiveGrid>
-
     </div>
   );
 }
